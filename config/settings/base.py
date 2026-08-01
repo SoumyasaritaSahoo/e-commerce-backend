@@ -50,6 +50,7 @@ THIRD_PARTY_APPS = [
 # Phase 0 of docs/14-execution-checklist.md. Kept in the dependency order
 # they tend to get FK'd in (accounts first, core utilities available to all).
 LOCAL_APPS = [
+    "apps.common",
     "apps.core",
     "apps.accounts",
     "apps.vendors",
@@ -137,9 +138,9 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
-    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
-    "PAGE_SIZE": 20,
+    "DEFAULT_PAGINATION_CLASS": "apps.common.pagination.StandardResultsSetPagination",
     "DEFAULT_FILTER_BACKENDS": (),
+    "EXCEPTION_HANDLER": "apps.common.exceptions.custom_exception_handler",
 }
 
 # Simple JWT — access+refresh with rotation, blacklist on logout
