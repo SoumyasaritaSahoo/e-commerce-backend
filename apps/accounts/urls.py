@@ -1,5 +1,14 @@
-"""URL patterns for the accounts app, included under /api/v1/accounts/ in config/api_v1_urls.py."""
+from django.urls import path
+
+from .views import LogoutView, RegisterView,LoginView,MeView, RefreshView
+
 
 app_name = "accounts"
 
-urlpatterns = []
+urlpatterns = [
+    path("register/", RegisterView.as_view(), name="register"),
+    path("login/", LoginView.as_view(), name="login"),
+    path("refresh/", RefreshView.as_view(), name="refresh"),
+    path("logout/", LogoutView.as_view(), name="logout"),
+    path("me/", MeView.as_view(), name="me"),
+]
