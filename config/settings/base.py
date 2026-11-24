@@ -194,3 +194,26 @@ LOGGING = {
         "level": env("DJANGO_LOG_LEVEL", default="INFO"),
     },
 }
+
+# Email configuration
+EMAIL_BACKEND = env(
+    "EMAIL_BACKEND",
+    default="django.core.mail.backends.smtp.EmailBackend",
+)
+
+EMAIL_HOST = env("EMAIL_HOST", default="")
+EMAIL_PORT = env.int("EMAIL_PORT", default=587)
+EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", default=True)
+EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="")
+
+DEFAULT_FROM_EMAIL = env(
+    "DEFAULT_FROM_EMAIL",
+    default="no-reply@example.com",
+)
+
+# Frontend URL used to construct email verification links.
+FRONTEND_URL = env(
+    "FRONTEND_URL",
+    default="http://localhost:3000",
+)

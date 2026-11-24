@@ -1,1 +1,21 @@
-# Register your models here.
+from django.contrib import admin
+
+from .models import Cart, CartItem, WishlistItem
+
+
+class CartItemInline(admin.TabularInline):
+    model = CartItem
+    extra = 0
+
+
+@admin.register(Cart)
+class CartAdmin(admin.ModelAdmin):
+    list_display = ["id", "user", "session_key", "updated_at"]
+    search_fields = ["user__email", "session_key"]
+    inlines = [CartItemInline]
+
+
+@admin.register(WishlistItem)
+class WishlistItemAdmin(admin.ModelAdmin):
+    list_display = ["user", "variant", "created_at"]
+    search_fields = ["user__email", "variant__sku"]

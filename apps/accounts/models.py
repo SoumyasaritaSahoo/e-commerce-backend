@@ -80,3 +80,60 @@ class Address(BaseModel):
 
     def __str__(self):
         return f"{self.full_name} — {self.line1}, {self.city}"
+
+
+
+class EmailVerificationToken(BaseModel):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="email_verification_tokens",
+    )
+    token_hash = models.CharField(
+        max_length=64,
+        unique=True,
+    )
+    expires_at = models.DateTimeField()
+    used_at = models.DateTimeField(
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        indexes = [
+            models.Index(
+                fields=["user", "created_at"],
+                name="email_token_user_created_idx",
+            ),
+        ]
+
+    def __str__(self):
+        return f"Email verification token for {self.user.email}"
+
+
+class PasswordResetToken(BaseModel):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="password_reset_tokens",
+    )
+    token_hash = models.CharField(
+        max_length=64,
+        unique=True,
+    )
+    expires_at = models.DateTimeField()
+    used_at = models.DateTimeField(
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        indexes = [
+            models.Index(
+                fields=["user", "created_at"],
+                name="pwd_reset_user_created_idx",
+            ),
+        ]
+
+    def __str__(self):
+        return f"Password reset token for {self.user.email}"

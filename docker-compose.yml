@@ -108,6 +108,7 @@ services:
   frontend:
     build:
       context: ../e-commerce-frontend
+      target: dev
     volumes:
       - ../e-commerce-frontend:/app
       - /app/node_modules
